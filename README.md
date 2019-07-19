@@ -1,2 +1,0 @@
-# EvolvingStickySidebar
-Created with CodeSandbox
