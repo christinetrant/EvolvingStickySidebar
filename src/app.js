@@ -6,15 +6,16 @@ let treat3 = document.getElementById("part-2").offsetTop;
 
 // 'const' becase we set only once but if we want to be responsive we would have as normal 'var' and update these values everytime the user resizes window.
 // we could do this with:  window.onresize = functionToHandleResizeEvent();
-
+/*  NEEDS WORK!!!  */
+/*
 window.addEventListener("resize", go);
-
 function go() {
   treat1 = document.getElementById("part-0").offsetTop;
-  console.log("resizing " + treat1);
+//  console.log("resizing " + treat1);
   treat2 = document.getElementById("part-1").offsetTop;
   treat3 = document.getElementById("part-2").offsetTop;
-}
+}   */
+
 /* function reportWindowSize() {
   heightOutput.textContent = window.innerHeight;
   widthOutput.textContent = window.innerWidth;
@@ -26,8 +27,6 @@ window.onresize = reportWindowSize;
 
 /* let el = document.getElementsByClassName('main');
 el.onscroll = function() { treat() }; */
-
-window.addEventListener("scroll", treat);
 
 let i = document.getElementById("item");
 let p = document.getElementById("price");
@@ -64,8 +63,8 @@ function sideHide() {
  * NOTE: If we wanted to improve the efficiency of this we could do something to limit the number of times this function is called as the oncroll event gets fired a crazy amount of time.
  */
 function treat() {
-  //var x = 0;
-  //console.log("Hello - scrolled " + (x += 1) + " times");
+  var x = 0;
+  console.log("Hello - scrolled " + (x += 1) + " times");
   let currentScrollPosition = window.scrollY;
   //Make a for loop?  Make a function!
   if (currentScrollPosition >= treat1 && currentScrollPosition <= treat2) {
@@ -96,3 +95,26 @@ function treat() {
     sideHide();
   }
 }
+
+// DEBOUNCE FUNCTION TO LIMIT NUMBER OF SCROLL EVENTS FIRING
+function debounce(func, wait = 15, immediate = true) {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// listens out for scroll event and calls the treat function
+//window.addEventListener("scroll", treat);
+
+// instead of event listener for treat - we wrap it within the debounce function to limit times it is triggered
+window.addEventListener("scroll", debounce(treat));
