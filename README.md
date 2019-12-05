@@ -6,3 +6,5 @@ Included a debounce function to limit number of times the scroll event listener 
 [Demo][1]
 
 [1]:https://christinetrant.github.io/EvolvingStickySidebar/
+
+![Screenshot](scrolling-sidebar.png)
